@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+    <%- include('../partials/header'); %>
+</header>
+
+<main>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="jumbotron">
+                <h1>Создайте свой аккаунт</h1>
+                <p>Введите имя пользователя и пароль</p>
+                <form id="formLogin" method="post">
+                    <div>Ваш логин</div>
+                    <input type="text" name="userLogin" value="">
+                    <div>Ваш пароль</div>
+                    <input type="text" name="userPassword" value="">
+                    <div>Повторите Ваш пароль</div>
+                    <input type="text" name="userPassword" value="">
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="well">
+                <h3>Тут будет ваш логин</h3>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+<script>
+    // const formElement = document.getElementById('formRegistr');
+    // formElement.addEventListener('submit', (e) => {
+    //     e.preventDefault();
+    //     const formData = new FormData(formElement);
+    //     const login = formData.get('login'); //
+    //     const password = formData.get('password'); //
+    //     console.log(login, password)
+    // });
+</script>
+</html>
