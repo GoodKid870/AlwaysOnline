@@ -226,11 +226,11 @@ const wss = new WebSocketServer({ clientTracking: false, noServer: true });
 const connections = new Map();
 const connectedPairs = new Map();
 
-//основная логика коннектов, передачи сообщений и присоеденения к комнатам
+//основная логика коннектов, передачи сообщений и присоединения к комнатам
 server.on('upgrade', (request, socket, head) => {
     socket.on('error', onSocketError);
 
-    //гоняем сесси наших подключенных клиентов
+    //гоняем сессии наших подключенных клиентов
     sessionParser(request, {}, () => {
         if (!request.session.userId) {
             socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
@@ -255,7 +255,7 @@ wss.on('connection', (ws, request) => {
     ws.on('error', console.error);
 
     // тут идем к сообщениям
-    ws.on('message', function (message) {
+    ws.on('message', (message) => {
         const data = JSON.parse(message);
         const senderId = userId;
         const recipientId = data.recipientId;
@@ -299,7 +299,7 @@ wss.on('connection', (ws, request) => {
         connectedPairs.set(pairKey, true);
     });
 
-    ws.on('close', function () {
+    ws.on('close', () => {
         connections.delete(userId);
 
         // Удаляем пару из карты подключенных пар

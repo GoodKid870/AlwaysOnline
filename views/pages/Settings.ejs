@@ -177,9 +177,9 @@
 
 
     function previewFile() {
-        var preview = document.querySelector('#avatar-preview');
-        var file = document.querySelector('input[type=file]').files[0];
-        var reader = new FileReader();
+        const preview = document.querySelector('#avatar-preview');
+        const file = document.querySelector('input[type=file]').files[0];
+        const reader = new FileReader();
 
         reader.addEventListener("load", function () {
             preview.src = reader.result;
