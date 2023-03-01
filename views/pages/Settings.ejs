@@ -152,7 +152,7 @@
             const response = await fetch('/settings');
             if (response.ok) {
                 const data = await response.json();
-                if (data.status === "sessionFail") {
+                if (data.status == "sessionFail") {
                     // Отобразить сообщение об ошибке и перейти на страницу логина
                     showErrorMessage(data.message);
                     window.location.href = "/login";
