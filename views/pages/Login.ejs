@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(-45deg, #003973, #E5E5BE);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0 50%;
+            }
+        }
+        .jumbotron {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 1rem rgb(0 0 0 / 50%)
+        }
+        h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px #c3b68fd9;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+            font-size: 1.5rem;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.5rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        input[type="submit"]:hover {
+            background-color: #2a8799;
+            transform: scale(1.1);
+        }
+        .navbar {
+            margin: 20px 0;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 1rem rgb(0 0 0 / 50%);
+        }
+    </style>
+</head>
+<body class="container">
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/">AlwaysOnline</a>
+    </nav>
+</header>
+<main>
+    <div class="jumbotron">
+        <h1>Добро пожаловать в AlwaysOnline</h1>
+        <p>Введите имя пользователя и пароль</p>
+        <form id="formLogin" method="post">
+            <div>Ваша почта</div>
+            <input type="email" name="userMail" value="" id="userMail">
+            <div>Ваш пароль</div>
+            <input type="password" name="userPassword" value="" id="userPassword">
+            <input type="submit">
+        </form>
+    </div>
+</main>
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+<script>
+    const form = document.getElementById("formLogin");
+    form.addEventListener("submit", sendInfo);
+    async function sendInfo(e) {
+        e.preventDefault();
+        const userMail = document.getElementById("userMail").value
+        const userPassword = document.getElementById("userPassword").value
+         const response = await fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                userMail,
+                userPassword
+            }),
+        }).then((res) => res.json());
+
+        if (response.status == "success") {
+            let session = response.sessionUser
+            localStorage.setItem("session", session)
+            window.location.href = "/profile";
+            } else {
+            alert(response.message);
+            location.reload();
+        }
+    }
+</script>
+<%- include("../partials/scripts.ejs") %>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(-45deg, #003973, #E5E5BE);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0 50%;
+            }
+        }
+
+
+        header {
+            padding: 1rem;
+            background-color: #000;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px #9b7c7c;
+            margin-bottom: 1rem;
+            font-family: "Helvetica Neue", cursive;
+        }
+
+        p.second {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            font-style: oblique;
+            font-family: "Helvetica Neue", cursive;
+
+        }
+
+        .jumbotron {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+        }
+
+        a.navbar-brand {
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 1rem rgb(0 0 0 / 50%);
+            color: #000;
+            font-size: 2rem;
+            border-radius: 1rem;
+            padding: 1rem 2rem;
+            margin: 1rem;
+            transition: all 0.2s ease-in-out;
+        }
+
+        a.navbar-brand:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body class="container" style="height: 100vh;">
+<main>
+    <div class="jumbotron">
+        <h1>Добро пожаловать в AlwaysOnline</h1>
+        <p class="second">
+            Это социальная сеть, в которой общаются люди.
+            Зарегистрируйтесь или войдите в систему, чтобы начать общение.
+        </p>
+    </div>
+    <div class="button-container">
+        <a class="navbar-brand" href="/login">Вход</a>
+        <a class="navbar-brand" href="/registration">Регистрация</a>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+</body>
+</html>
