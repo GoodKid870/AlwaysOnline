@@ -17,6 +17,15 @@
       "senderName": "GoodKid",
       "chatId": "chat_1677651328015_1677651795992",
       "timestamp": "2023-03-01T06:38:12.178Z"
+    },
+    {
+      "senderId": "me",
+      "content": "бип-боп я робот ",
+      "recipientId": 1677651795992,
+      "avatar": "uploads/users/avatars/ac05ec38e22dc505b330e91ff6689f3b",
+      "senderName": "GoodKid",
+      "chatId": "chat_1677651328015_1677651795992",
+      "timestamp": "2023-03-01T08:23:01.304Z"
     }
   ],
   "chatId": "chat_1677651328015_1677651795992",
