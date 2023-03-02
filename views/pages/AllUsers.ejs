@@ -94,7 +94,6 @@
             });
             const data = await response.json();
 
-
             if (data.status == "fail"){
                 alert(data.message);
             } else if (data.status == "sessionFail"){

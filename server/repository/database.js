@@ -13,6 +13,7 @@ export const database = {
             return undefined
         }
     },
+
     //мы создаем какой-то обьект в базе данных с которым хотим работать
     setDatabaseObject(type, id, object){
        try {
@@ -37,6 +38,7 @@ export const database = {
             console.log(e);
         }
     },
+
     //мы берем сообщения из базы данных с которым хотим работать
     getDatabaseMessageObject(type, id){
         try {
@@ -55,6 +57,7 @@ export const database = {
             console.log(e)
         }
     },
+
     //мы меняем пользователя в базе данных
     changeDatabaseUser(type, filename, newUserMail){
         try {

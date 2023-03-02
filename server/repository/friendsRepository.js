@@ -92,6 +92,7 @@ export const friendsRepository = {
             console.error(e);
         }
     },
+
     changeFriendAvatar(usermail, username, avatar){
         try {
             const user = userRepository.getUserFromEmail(usermail);
@@ -105,6 +106,7 @@ export const friendsRepository = {
             console.error(e);
         }
     },
+
     hasFriend(usermail, userId) {
         const user = userRepository.getUserFromEmail(usermail);
         try {
@@ -113,6 +115,7 @@ export const friendsRepository = {
             return false
         }
     },
+
     deleteSomeFriend(usermail, userId, friendMail, friendUserId){
         const user = userRepository.getUserFromEmail(usermail);
         const friend = userRepository.getUserFromEmail(friendMail)

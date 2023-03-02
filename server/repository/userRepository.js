@@ -6,6 +6,7 @@ export const userRepository = {
     getUserFromEmail(email){
         return database.getDatabaseObject("users", email)
     },
+
     createUser(email, login, password){
         database.setDatabaseObject("users", email, {
                 "userInfo": {
@@ -18,6 +19,7 @@ export const userRepository = {
             }
         )
     },
+
     createUserSession(email){
         const sessionObject = {
             "email":email,
@@ -27,6 +29,7 @@ export const userRepository = {
         database.setDatabaseObject("sessions", sessionId, sessionObject)
         return sessionId
     },
+
     getUserFromSession(id){
         const sessionObject = database.getDatabaseObject("sessions", id)
         if (sessionObject != undefined){
@@ -35,6 +38,7 @@ export const userRepository = {
         }
         return undefined
     },
+
     getUserAvatar(usermail, destination, filename){
         try {
             const user = userRepository.getUserFromEmail(usermail)
@@ -44,6 +48,7 @@ export const userRepository = {
             console.log(e)
         }
     },
+
     userStatisticCounter(email){
         try {
             const post = newsRepository.getDatabaseNewsListFromUser(email)
@@ -55,6 +60,7 @@ export const userRepository = {
 
         }
     },
+
     changeUserData(usermail, userMail, userLogin, userPassword) {
         const user = userRepository.getUserFromEmail(usermail);
         if (userMail) {

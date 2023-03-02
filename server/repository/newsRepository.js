@@ -9,6 +9,7 @@ export const newsRepository = {
             return undefined
         }
     },
+
     getDatabaseNewsListFromUser(userMail){
         const user = userRepository.getUserFromEmail(userMail)
         const posts = []
@@ -22,6 +23,7 @@ export const newsRepository = {
         }
         return posts
     },
+
     createPostsFromUser(usermail, username, description, postURL){
         try {
             const user = userRepository.getUserFromEmail(usermail)
@@ -41,6 +43,7 @@ export const newsRepository = {
             console.log(c)
         }
     },
+
     changeNewsData(usermail, username, newusername) {
         try {
             const user = userRepository.getUserFromEmail(usermail);

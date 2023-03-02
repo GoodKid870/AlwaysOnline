@@ -94,27 +94,31 @@ button:hover {
     display: flex;
     margin-top: 10px;
 }
+
 .chat-form input {
     flex: 1;
 }
+
 .chat-form button {
     margin-left: 10px;
 }
+
 .chat-history {
     height: 200px;
     overflow-y: scroll;
     margin-bottom: 10px;
 }
+
 .message {
     margin-bottom: 10px;
 }
+
 .message-container-left,
 .message-container-right {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
-
 
 .message-avatar {
     width: 50px;
@@ -123,12 +127,10 @@ button:hover {
     margin-right: 10px;
 }
 
-
 .message-username {
     font-weight: bold;
     margin-right: 10px;
 }
-
 
 .message-content {
     padding: 10px;
@@ -138,13 +140,11 @@ button:hover {
     line-height: 1.4;
 }
 
-
 .message-sent {
     background-color: #007bff;
     color: white;
     align-self: flex-end;
 }
-
 
 .message-received {
     background-color: #f2f2f2;
