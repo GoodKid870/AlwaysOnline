@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(-45deg, #003973, #E5E5BE);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0 50%;
+            }
+        }
+        .jumbotron {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 1rem rgb(0 0 0 / 50%)
+        }
+        .navbar {
+            margin: 20px 0;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 1rem rgb(0 0 0 / 50%);
+        }
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+            font-style: oblique;
+            font-family: "Helvetica Neue", cursive;
+        }
+        .link {
+            padding: 10px 20px;
+            margin: -1px;
+            background-color: #d7caa3;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        .link:hover{
+            background-color: #b3a57c;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            margin: 11px;
+            background-color: #d7caa3;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            border: 0;
+            transition: all 0.2s ease-in-out;
+        }
+        input[type="submit"]:hover {
+            background-color: #b3a57c;
+            border: 0;
+            transform: scale(1.1);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #d7caa3;
+            color: #fff;
+            border-radius: 10px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #b3a57c;
+            transform: scale(1.1);
+        }
+
+        #avatar-preview {
+            display: block;
+            margin-bottom: 1rem;
+            max-width: 50%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        .preview-container{
+            display: none;
+        }
+
+    </style>
+</head>
+<body class="container">
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/">AlwaysOnline</a>
+        <a class="navbar-brand" href="/news" id="news">Новости</a>
+        <a class="navbar-brand" href="/messages" id="message">Сообщения</a>
+        <a class="navbar-brand" href="/addfriend" id="friends">Пользователи</a>
+        <a class="navbar-brand" onclick="localStorage.clear()" href="/logout">выйти</a>
+        <a class="navbar-brand"  href="/profile"><%=login%></a>
+        <div class="t706__product-del">
+            <img class="profile-image" id="profile-image" style="width: 58.5px; height: 58.5px; object-fit: cover; border-radius: 50%" src="<%=avatar%>">
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="jumbotron">
+        <a class="link" href="/usersetting">Расширенные</a>
+        <p class="second">Хотите изменить свою аватарку?</p>
+        <form action="/settings" enctype="multipart/form-data" method="POST">
+            <label for="avatar-upload" class="custom-file-upload">
+                Выберите файл
+            </label>
+            <input id="avatar-upload" type="file" name="avatar" onchange="previewFile()">
+            <div class="preview-container">
+                <img id="avatar-preview" src="#" alt="Avatar Preview">
+            </div>
+            <input type="submit" value="Загрузить">
+        </form>
+
+    </div>
+</main>
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+<script>
+
+    async function sessionUser() {
+        try {
+            const response = await fetch('/settings');
+            if (response.ok) {
+                const data = await response.json();
+                if (data.status == "sessionFail") {
+                    // Отобразить сообщение об ошибке и перейти на страницу логина
+                    showErrorMessage(data.message);
+                    window.location.href = "/login";
+                } else {
+                    // Перезагрузить страницу
+                    location.reload();
+                }
+            } else {
+                // Обработать ошибку HTTP
+                showErrorMessage(`Ошибка HTTP: ${response.status} ${response.statusText}`);
+            }
+        } catch (error) {
+            // Обработать ошибку сети или парсинга JSON
+            showErrorMessage(`Ошибка: ${error.message}`);
+        }
+    }
+
+    function showErrorMessage(message) {
+        // Отобразить сообщение об ошибке, например, в модальном окне или уведомлении
+        console.error(message);
+    }
+
+
+    function previewFile() {
+        const preview = document.querySelector('#avatar-preview');
+        const file = document.querySelector('input[type=file]').files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+            // добавляем стили для отображения блока с изображением
+            document.querySelector('.preview-container').style.display = 'block';
+        } else {
+            // скрываем блок с изображением, если файл не выбран
+            document.querySelector('.preview-container').style.display = 'none';
+        }
+    }
+</script>
+</body>
+<!doctype html>
+</html>

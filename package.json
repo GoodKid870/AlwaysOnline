@@ -1,8 +1,10 @@
 {
-  "name": "node-ejs",
-  "main": "server.js",
+  "name": "AlwaysOnline",
+  "version": "0.0.2",
+  "main": "app.js",
   "scripts": {
-    "startWebApp": "node app.js"
+    "dev": "tsc",
+    "start": "node --experimental-modules dist/app.js"
   },
   "type": "module",
   "dependencies": {
@@ -16,5 +18,9 @@
     "multer": "^1.4.5-lts.1",
     "socket.io": "^4.5.4",
     "ws": "^8.12.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "typescript": "^5.0.4"
   }
 }

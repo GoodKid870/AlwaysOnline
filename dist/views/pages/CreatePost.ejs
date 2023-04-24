@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(-45deg, #003973, #E5E5BE);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0 50%;
+            }
+        }
+        .jumbotron {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 1rem rgb(0 0 0 / 50%)
+        }
+        h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px #9b7c7c;
+            margin-bottom: 1rem;
+            font-family: "Helvetica Neue", cursive;
+        }
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-style: oblique;
+            font-family: "Helvetica Neue", cursive;
+        }
+        input[type="email"],
+        input[type="text"],
+        input[type="text"]{
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+            font-size: 1.5rem;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            margin: 11px;
+            background-color: #d7caa3;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            border: 0;
+            transition: all 0.2s ease-in-out;
+        }
+        input[type="submit"]:hover {
+            background-color: #b3a57c;
+            border: 0;
+            transform: scale(1.1);
+        }
+        .navbar {
+            margin: 20px 0;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 1rem rgb(0 0 0 / 50%);
+        }
+    </style>
+</head>
+<body class="container">
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/">AlwaysOnline</a>
+        <a class="navbar-brand" href="/news" id="news">Новости</a>
+        <a class="navbar-brand" href="/messages" id="message">Сообщения</a>
+        <a class="navbar-brand" href="/addfriend" id="friends">Пользователи</a>
+        <a class="navbar-brand" onclick="localStorage.clear()" href="/logout">выйти</a>
+        <a class="navbar-brand" href="/profile"><%=login%></a>
+        <div class="t706__product-del">
+            <img class="profile-image" style="width: 58.5px; height: 58.5px; object-fit: cover; border-radius: 50%" src="<%=avatar%>">
+        </div>
+    </nav>
+</header>
+<main>
+      <div class="jumbotron">
+        <h1>Опубликовать новость!</h1>
+          <form id="create-news" method="post">
+              <div>Описание поста</div>
+              <input type="text" placeholder="" class="form-control" id="postName"/>
+              <div>Ссылка на картинку</div>
+              <input type="text" placeholder="" class="form-control" id="imgURL"/>
+              <input type="submit">
+          </form>
+      </div>
+</main>
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+<script>
+   const form = document.getElementById("create-news");
+   form.addEventListener("submit", createNews);
+   async function createNews(e) {
+     e.preventDefault();
+     const caption = document.getElementById("postName").value
+     const url = document.getElementById("imgURL").value
+     const response = await fetch("/news", {
+       method: "POST",
+       headers: {
+         "Content-type": "application/json",
+       },
+       body: JSON.stringify({
+         caption,
+         url,
+       }),
+     }).then((res) => res.json());
+
+     if (response.status == "ok") {
+       window.location.pathname = "/news";
+     } else if (response.status == "error") {
+       alert(response.message);
+       location.reload();
+     } else if (response.status == "sessionFail"){
+           alert(response.message);
+           window.location.href = "/login";
+       }
+   }
+</script>
+<%- include("../partials/scripts.ejs") %>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
