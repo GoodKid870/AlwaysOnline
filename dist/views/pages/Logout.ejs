@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+    <style>
+        body {
+            margin: 0;
+            background: linear-gradient(-45deg, #003973, #E5E5BE);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0 50%;
+            }
+        }
+        .jumbotron {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 3rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 1rem rgb(0 0 0 / 50%)
+        }
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-style: oblique;
+            font-family: "Helvetica Neue", cursive;
+        }
+        .navbar {
+            margin: 20px 0;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 1rem rgb(0 0 0 / 50%);
+        }
+    </style>
+</head>
+<body class="container">
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/">AlwaysOnline</a>
+    </nav>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <h1 class="first">Вы вышли с аккаунта</h1>
+        <p class="second">Переход на страницу логину через пару секунд...</p>
+    </div>
+</main>
+
+<footer>
+    <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+<script src="./public/js/avatar.js"></script>
+<!doctype html>
+</html>

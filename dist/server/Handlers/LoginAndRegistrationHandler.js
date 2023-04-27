@@ -1,32 +1,21 @@
-import CustomRequest from "../repository/Interfaces/CustomRequest";
-import {RequestBodyLogin} from "../repository/Interfaces/RequestBodyLogin";
-import { Response } from "express";
-import webManager from "../repository/WebManager";
-import {
-    CONST_ERROR_RESPONSE_EMPTY_FILLS,
-    CONST_ERROR_RESPONSE_INVALID_PASSWORD, CONST_ERROR_RESPONSE_USER_EXIST,
-    CONST_ERROR_RESPONSE_USER_NOT_EXIST
-} from "../repository/Interfaces/ErrorResponsList";
-import {RequestRegistrationBody} from "../repository/Interfaces/RequestRegistrationBody";
-import WebManager from "../repository/WebManager";
-import UserRepository from "../repository/UserRepository";
-
-
+import webManager from "../repository/WebManager.js";
+import { CONST_ERROR_RESPONSE_EMPTY_FILLS, CONST_ERROR_RESPONSE_INVALID_PASSWORD, CONST_ERROR_RESPONSE_USER_EXIST, CONST_ERROR_RESPONSE_USER_NOT_EXIST } from "../repository/Interfaces/ErrorResponsList.js";
+import WebManager from "../repository/WebManager.js";
+import UserRepository from "../repository/UserRepository.js";
 class LoginAndRegistrationHandler {
-    public static async UserAuthorized(req: CustomRequest, res: Response) {
+    static async UserAuthorized(req, res) {
         //берем наш рек и чутка делаем его удобнее
-        const { userMail, userPassword }: RequestBodyLogin = req.body;
+        const { userMail, userPassword } = req.body;
         try {
             //проверяем нашего юзера на момент существования
             let user = UserRepository.GetUserFromEmail(userMail);
             if (user == undefined) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_USER_NOT_EXIST, res)
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_USER_NOT_EXIST, res);
                 return;
             }
-
             //если авторизовался
             if (userPassword != user.userInfo.userPassword) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_INVALID_PASSWORD, res)
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_INVALID_PASSWORD, res);
                 return;
             }
             //создаем сессию и пихаем туда всяко разное
@@ -39,13 +28,14 @@ class LoginAndRegistrationHandler {
                 message: "Login successfully",
                 sessionUser: userToken,
             });
-        } catch (e) {
+        }
+        catch (e) {
             console.log(e);
         }
-    };
-
-    public static async UserRegistration(req: CustomRequest, res: Response) {
-        const {userMail, userPassword, userLogin}: RequestRegistrationBody = req.body
+    }
+    ;
+    static async UserRegistration(req, res) {
+        const { userMail, userPassword, userLogin } = req.body;
         try {
             //если пользователь не заполнил одно из полей
             if ((userMail == '' || userPassword == '' || userMail == '')) {
@@ -53,21 +43,23 @@ class LoginAndRegistrationHandler {
                 return;
             }
             //проверяем существует наш пользователь уже и если все гут создаем пользователя
-            const user = UserRepository.GetUserFromEmail(userMail)
-            if (user == undefined){
-                UserRepository.CreateUser(userMail, userLogin, userPassword)
+            const user = UserRepository.GetUserFromEmail(userMail);
+            if (user == undefined) {
+                UserRepository.CreateUser(userMail, userLogin, userPassword);
                 res.json({
-                    status:"success",
-                    message:"Добро пожаловать в AlwaysOnline"
-                })
-            } else {
+                    status: "success",
+                    message: "Добро пожаловать в AlwaysOnline"
+                });
+            }
+            else {
                 WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_USER_EXIST, res);
                 return;
             }
-        } catch (e) {
-            console.log(e)
         }
-    };
+        catch (e) {
+            console.log(e);
+        }
+    }
+    ;
 }
-
-export default LoginAndRegistrationHandler
+export default LoginAndRegistrationHandler;

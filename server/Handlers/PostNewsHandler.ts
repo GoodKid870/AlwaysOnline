@@ -1,14 +1,9 @@
 //импортируем репозитории
-import CustomRequest from "../Repository/Interfaces/CustomRequest";
-import {IUserNews} from "../Repository/Interfaces/IUserNews";
+import CustomRequest from "../repository/Interfaces/CustomRequest";
+import {IUserNews} from "../repository/Interfaces/IUserNews";
 import { Response } from "express";
-import NewsRepository from "../Repository/NewsRepository";
-import UserRepository from "../Repository/UserRepository";
-import webManager from "../Repository/WebManager";
-import {
-    CONST_ERROR_RESPONSE_EMPTY_FILLS,
-    CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER
-} from "../Repository/Interfaces/ErrorResponsList";
+import NewsRepository from "../repository/NewsRepository";
+import UserRepository from "../repository/UserRepository";
 
 
 
@@ -20,11 +15,17 @@ class PostNewsHandler {
 
             // Проверяем на пустые поля
             if (!caption || !url) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_EMPTY_FILLS, res);
+                return res.json({
+                    status: "error",
+                    message: "А поля заполнять за вас будет разраб, да? =)"
+                })
             }
 
             if (!user) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                return res.json({
+                    status: "sessionFail",
+                    message: "Нужна авторизация"
+                })
             }
             //добавляем новость
             NewsRepository.CreatePostsFromUser(user.userInfo.userMail, user.userInfo.userLogin, caption, url)
@@ -43,8 +44,10 @@ class PostNewsHandler {
             //да-да опять сессия
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
-                return;
+                return res.json({
+                    status: "sessionFail",
+                    message: "Нужна повторная авторизация"
+                })
             }
             //рендерим страницу с постами
             const posts = NewsRepository.GetDatabaseNewsListFromUser(user.userInfo.userMail)
@@ -56,4 +59,3 @@ class PostNewsHandler {
 }
 
 export default PostNewsHandler
-
