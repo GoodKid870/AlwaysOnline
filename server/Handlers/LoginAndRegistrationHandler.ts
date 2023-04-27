@@ -1,15 +1,15 @@
-import CustomRequest from "../repository/Interfaces/CustomRequest";
-import {RequestBodyLogin} from "../repository/Interfaces/RequestBodyLogin";
+import CustomRequest from "../Repository/Interfaces/CustomRequest";
+import {RequestBodyLogin} from "../Repository/Interfaces/RequestBodyLogin";
 import { Response } from "express";
-import webManager from "../repository/WebManager";
+import webManager from "../Repository/WebManager";
 import {
     CONST_ERROR_RESPONSE_EMPTY_FILLS,
     CONST_ERROR_RESPONSE_INVALID_PASSWORD, CONST_ERROR_RESPONSE_USER_EXIST,
     CONST_ERROR_RESPONSE_USER_NOT_EXIST
-} from "../repository/Interfaces/ErrorResponsList";
-import {RequestRegistrationBody} from "../repository/Interfaces/RequestRegistrationBody";
-import WebManager from "../repository/WebManager";
-import UserRepository from "../repository/UserRepository";
+} from "../Repository/Interfaces/ErrorResponsList";
+import {RequestRegistrationBody} from "../Repository/Interfaces/RequestRegistrationBody";
+import WebManager from "../Repository/WebManager";
+import UserRepository from "../Repository/UserRepository";
 
 
 class LoginAndRegistrationHandler {
@@ -17,11 +17,20 @@ class LoginAndRegistrationHandler {
         //берем наш рек и чутка делаем его удобнее
         const { userMail, userPassword }: RequestBodyLogin = req.body;
         try {
+
+            if (userMail == undefined && userPassword == undefined){
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_EMPTY_FILLS, res);
+                return;
+            }
+
             //проверяем нашего юзера на момент существования
             let user = UserRepository.GetUserFromEmail(userMail);
             if (user == undefined) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_USER_NOT_EXIST, res)
-                return;
+                return res.json({
+                    message: "нет такого закона"
+                })
+                // webManager.SendErrorResponse(CONST_ERROR_RESPONSE_USER_NOT_EXIST, res);
+                // return;
             }
 
             //если авторизовался

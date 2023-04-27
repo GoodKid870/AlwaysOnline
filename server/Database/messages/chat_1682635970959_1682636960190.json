@@ -1,0 +1,16 @@
+{
+  "chat": [
+    {
+      "senderId": "me",
+      "content": "Ку",
+      "recipientId": 1682636960190,
+      "avatar": "uploads/users/avatars/02f41c7c0d32e890c77a03622e2f5036",
+      "senderName": "GoodKid",
+      "chatId": "chat_1682635970959_1682636960190",
+      "timestamp": "2023-04-27T23:10:38.555Z"
+    }
+  ],
+  "chatId": "chat_1682635970959_1682636960190",
+  "sender": "ilyamokronozhenko@yandex.ru",
+  "receiver": "hjoke@yandex.ru"
+}

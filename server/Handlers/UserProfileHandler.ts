@@ -1,11 +1,13 @@
 //импортируем репозиторий
-import CustomRequest from "../repository/Interfaces/CustomRequest";
+import CustomRequest from "../Repository/Interfaces/CustomRequest";
 import { Response } from "express";
-import NewsRepository from "../repository/NewsRepository";
-import FriendsRepository from "../repository/FriendsRepository";
-import UserRepository from "../repository/UserRepository";
-import Database from "../repository/Database";
-import MessageRepository from "../repository/MessageRepository";
+import NewsRepository from "../Repository/NewsRepository";
+import FriendsRepository from "../Repository/FriendsRepository";
+import UserRepository from "../Repository/UserRepository";
+import Database from "../Repository/Database";
+import MessageRepository from "../Repository/MessageRepository";
+import webManager from "../Repository/WebManager";
+import {CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER} from "../Repository/Interfaces/ErrorResponsList";
 
 
 class UserProfileHandler {
@@ -15,10 +17,8 @@ class UserProfileHandler {
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
 
             if (user == undefined) {
-                return res.json({
-                    status: "sessionFail",
-                    message: "Повторная авторизация"
-                })
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                return;
             }
 
             if ((user == undefined ) || (filename == '') || (destination == '') || (req.file == undefined)){
@@ -43,10 +43,8 @@ class UserProfileHandler {
             const { userMail, userLogin, userPassword } = req.body;
             const user = UserRepository.GetUserFromSession(req.session.usertoken);
             if (user == undefined) {
-                return res.json({
-                    status: "sessionFail",
-                    message: "Повторная авторизация"
-                })
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                return;
             }
             if (UserRepository.GetUserFromEmail(userMail) == undefined){
                 if ((userMail && userMail !== "") && (userPassword && userPassword !== "") && (userLogin && userLogin !== "")) {
