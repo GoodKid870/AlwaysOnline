@@ -26,11 +26,8 @@ class LoginAndRegistrationHandler {
             //проверяем нашего юзера на момент существования
             let user = UserRepository.GetUserFromEmail(userMail);
             if (user == undefined) {
-                return res.json({
-                    message: "нет такого закона"
-                })
-                // webManager.SendErrorResponse(CONST_ERROR_RESPONSE_USER_NOT_EXIST, res);
-                // return;
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_USER_NOT_EXIST, res);
+                return;
             }
 
             //если авторизовался

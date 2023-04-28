@@ -127,9 +127,9 @@
      if (response.status == "ok") {
        window.location.pathname = "/news";
      } else if (response.status == "error") {
-       alert(response.message);
+       alert(response.status == false);
        location.reload();
-     } else if (response.status == "sessionFail"){
+     } else if (response.code == 1){
            alert(response.message);
            window.location.href = "/login";
        }

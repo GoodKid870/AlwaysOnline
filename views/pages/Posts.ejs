@@ -97,9 +97,9 @@
             const response = await fetch('/news');
             if (response.ok) {
                 const data = await response.json();
-                if (data.status == "sessionFail") {
+                if (data.code == 1) {
                     // Отобразить сообщение об ошибке и перейти на страницу логина
-                    showErrorMessage(data.message);
+                    showErrorMessage(data.response);
                     window.location.href = "/login";
                 } else {
                     // Перезагрузить страницу

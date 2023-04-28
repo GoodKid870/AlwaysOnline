@@ -136,8 +136,8 @@
         } else if (response.status == "succm"){
             alert(response.message);
             window.location.href = "/login";
-        } else if (response.status == "sessionFail"){
-            alert(response.message);
+        } else if (response.code == 1){
+            alert(response.response);
             window.location.href = "/login";
         }
     }

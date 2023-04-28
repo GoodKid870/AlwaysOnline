@@ -3,23 +3,12 @@
     "userMail": "ilyamokronozhenko@yandex.ru",
     "userLogin": "GoodKid",
     "userPassword": "1234",
-    "userId": 1682635970959
+    "userId": 1682679064635
   },
-  "avatar": "uploads/users/avatars/02f41c7c0d32e890c77a03622e2f5036",
-  "friends": [
+  "avatar": "uploads/users/avatars/cd46572426fdbdaa161020fff77b2311",
+  "posts": [
     {
-      "userId": 1682636960190
-    }
-  ],
-  "unreadMessages": {
-    "1682635970959": 2
-  },
-  "mail": [
-    {
-      "chatId": "chat_1682636960190_1682635970959"
-    },
-    {
-      "chatId": "chat_1682635970959_1682636960190"
+      "postId": 1682679284408
     }
   ]
 }
