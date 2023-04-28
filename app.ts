@@ -3,17 +3,15 @@ import express from "express";
 import session from "express-session";
 import path from 'path';
 import { createServer } from 'http';
-import { fileURLToPath } from 'url';
 import { WebSocketServer } from "ws";
 import bodyParser from "body-parser";
 import multer from 'multer';
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const upload = multer({ dest: 'uploads/users/avatars' })
 import type { Response } from 'express';
 //--NPM Libraries--//
 
 //--Functions--//
-import PostNewsHandler from "./server/Handlers/PostNewsHandler";
+import PostNewsHandler from './server/Handlers/PostNewsHandler';
 import MessageHandler from "./server/Handlers/MessageHandler";
 import FriendsHandler from "./server/Handlers/FriendsHandler";
 import UserProfileHandler from "./server/Handlers/UserProfileHandler";
@@ -21,18 +19,12 @@ import loginAndRegistrationHandler from "./server/Handlers/LoginAndRegistrationH
 //--Functions--//
 
 //--Repository--//
-import CustomRequest from "./server/repository/Interfaces/CustomRequest";
-import UserRepository from "./server/repository/UserRepository";
-import Database from "./server/repository/Database";
-import MessageRepository from "./server/repository/MessageRepository";
-import FriendsRepository from "./server/repository/FriendsRepository";
+import CustomRequest from "./server/Repository/Interfaces/CustomRequest";
+import UserRepository from "./server/Repository/UserRepository";
+import Database from "./server/Repository/Database";
+import MessageRepository from "./server/Repository/MessageRepository";
+import FriendsRepository from "./server/Repository/FriendsRepository";
 //--Repository--//
-
-//--Directories--//
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-//--Directories--//
-
 const app = express();
 const server = createServer(app);
 
@@ -377,7 +369,7 @@ app.post('/login', async (req: CustomRequest, res: Response) => {
 //POST моменты новости
 app.post("/news", async (req: CustomRequest, res: Response) => {
     try {
-        await PostNewsHandler.ShowNews(req, res)
+        await PostNewsHandler.CreateNews(req, res)
     }
     catch (e) {
         console.log(e)

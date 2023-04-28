@@ -26,4 +26,10 @@ export const CONST_ERROR_RESPONSE_USER_NOT_EXIST: IErrorResponse = {
     response: "user_not_exist",
 }
 
+export const CONST_ERROR_RESPONSE_ALREADY_HAVE_FRIEND: IErrorResponse = {
+    codeStatus: 400,
+    code: 5,
+    response: "friend_already_added"
+}
+
 

@@ -61,6 +61,7 @@ class FriendsRepository {
             user.friends = [];
         }
 
+
         if (!user2.friends) {
             user2.friends = [];
         }

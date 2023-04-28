@@ -1,5 +1,6 @@
 {
-    "watch": [""],
+    "watch": ["./server"],
     "ext": "ts,json",
-    "exec": "npm run build:autoimport && ts-node ./app.ts"
+    "ignore": ["./server/Database/", "./uploads"],
+    "exec": "npm run build:autoimport && ts-node --esm ./app.ts"
 }

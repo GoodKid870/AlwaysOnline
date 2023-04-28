@@ -1,9 +1,11 @@
 import { Response } from "express";
-import CustomRequest from "../repository/Interfaces/CustomRequest";
-import {IAddFriend} from "../repository/Interfaces/IAddFriend";
-import IDeleteFriend from "../repository/Interfaces/IDeleteFriend";
-import FriendsRepository from "../repository/FriendsRepository";
-import UserRepository from "../repository/UserRepository";
+import CustomRequest from "../Repository/Interfaces/CustomRequest";
+import {IAddFriend} from "../Repository/Interfaces/IAddFriend";
+import IDeleteFriend from "../Repository/Interfaces/IDeleteFriend";
+import FriendsRepository from "../Repository/FriendsRepository";
+import UserRepository from "../Repository/UserRepository";
+import webManager from "../Repository/WebManager";
+import { CONST_ERROR_RESPONSE_ALREADY_HAVE_FRIEND, CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER } from "../Repository/Interfaces/ErrorResponsList";
 
 class FriendsHandler {
     public static async AddFriend (req: CustomRequest, res: Response) {
@@ -12,17 +14,11 @@ class FriendsHandler {
             try {
                 const user = UserRepository.GetUserFromSession(req.session.usertoken);
                 if (user == undefined) {
-                    return res.json({
-                        status: "sessionFail",
-                        message: "Повторная авторизация",
-                    });
+                    webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 }
 
                 if (FriendsRepository.HasFriend(user.userInfo.userMail, userId)) {
-                    return res.json({
-                        status: "fail",
-                        message: "У тебя уже есть он в друзьях",
-                    });
+                    webManager.SendErrorResponse(CONST_ERROR_RESPONSE_ALREADY_HAVE_FRIEND, res);
                 }
 
                 FriendsRepository.AddSomeFriend(user.userInfo.userMail, username, email, userId, avatar);
@@ -43,10 +39,8 @@ class FriendsHandler {
             const {friendMail, friendId}: IDeleteFriend  = req.body
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                return res.json({
-                    status: "sessionFail",
-                    message: "Нужна повторная авторизация"
-                })
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                return;
             }
             FriendsRepository.DeleteSomeFriend(user.userInfo.userMail, user.userInfo.userId, friendMail, friendId)
             return res.json({
@@ -62,10 +56,8 @@ class FriendsHandler {
         try {
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                return res.json({
-                    status: "sessionFail",
-                    message: "Повторная авторизация"
-                })
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                return;
             }
 
             const friends = FriendsRepository.GetDatabasefriendsListFromUser(user.userInfo.userMail)

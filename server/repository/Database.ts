@@ -1,5 +1,4 @@
 //импортируем модули
-import {IUserProfile} from "./Interfaces/IUserProfile";
 import * as path from "path";
 import * as fs from "fs";
 
