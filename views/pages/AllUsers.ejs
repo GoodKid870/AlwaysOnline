@@ -97,10 +97,11 @@
             if (data.status == "fail"){
                 alert(data.message);
             } else if (data.code == 1){
-                alert(data.message);
+                alert(data.response);
                 window.location.href = "/login";
             } else {
                 alert(data.response);
+                location.reload()
             }
         } catch (error) {
             console.log(error);

@@ -24,6 +24,8 @@ import UserRepository from "./server/Repository/UserRepository";
 import Database from "./server/Repository/Database";
 import MessageRepository from "./server/Repository/MessageRepository";
 import FriendsRepository from "./server/Repository/FriendsRepository";
+import webManager from "./server/Repository/WebManager";
+import {CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER} from "./server/Repository/Interfaces/ErrorResponsList";
 //--Repository--//
 const app = express();
 const server = createServer(app);
@@ -77,10 +79,8 @@ app.get('/settings', async (req: CustomRequest, res: Response) => {
         if (req.session.authorized == true){
             const user = UserRepository.GetUserFromSession(req.session.usertoken);
             if (user == undefined){
-                return res.json({
-                    status: "sessionFail",
-                    message: "Нужна повторная авторизация"
-                });
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                return;
             }
             res.render("pages/Settings", {mail: user.userInfo.userMail, login: user.userInfo.userLogin, avatar: user.avatar});
         } else {
@@ -100,10 +100,8 @@ app.get('/create', async (req: CustomRequest, res: Response) => {
         if (req.session.authorized == true){
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                return res.json({
-                    status: "sessionFail",
-                    message: "Нужна повторная авторизация"
-                })
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                return;
             }
             res.render("pages/CreatePost", {mail: user.userInfo.userMail, login: user.userInfo.userLogin, avatar: user.avatar})
         } else {
@@ -120,10 +118,8 @@ app.get(`/profile`, async (req: CustomRequest, res: Response) => {
         if (req.session.authorized == true){
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                return res.json({
-                    status: "sessionFail",
-                    message: "Нужна повторная авторизация"
-                })
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                return;
             }
             const statistic = UserRepository.UserStatisticCounter(user.userInfo.userMail)
             if (user.unreadMessages != undefined){
@@ -159,10 +155,8 @@ app.get("/addfriend", async (req: CustomRequest, res: Response) => {
         if (req.session.authorized == true){
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                return res.json({
-                    status: "sessionFail",
-                    message: "Нужна повторная авторизация"
-                })
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                return;
             }
             const users = Database.GetAllDatabaseUsers(user.userInfo.userMail)
             res.render("pages/AllUsers", {mail: user.userInfo.userMail, login: user.userInfo.userLogin, avatar: user.avatar, users})
@@ -180,10 +174,8 @@ app.get("/start-chat", (req: CustomRequest, res: Response) => {
         if (req.session.authorized == true) {
             const user = UserRepository.GetUserFromSession(req.session.usertoken);
             if (user == undefined) {
-                return res.json({
-                    status: "sessionFail",
-                    message: "Нужна повторная авторизация"
-                })
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                return;
             }
             const to = req.query.to;
             // Запрашиваем историю сообщений из "базы" данных
@@ -329,10 +321,8 @@ app.get("/usersetting", async (req: CustomRequest, res: Response) => {
         if (req.session.authorized == true){
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                return res.json({
-                    status: "sessionFail",
-                    message: "Нужна повторная авторизация"
-                })
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                return;
             }
             res.render("pages/SettingData", {mail: user.userInfo.userMail, login: user.userInfo.userLogin, avatar: user.avatar})
         } else {
