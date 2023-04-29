@@ -2,34 +2,40 @@ import IErrorResponse from "./IErrorResponse";
 export const CONST_ERROR_RESPONSE_USER_EXIST: IErrorResponse = {
     codeStatus: 400,
     code: 0,
-    response: "user_exist",
+    response: "Пользователь уже существует",
 };
 export const CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER: IErrorResponse = {
     codeStatus: 400,
     code: 1,
-    response: "not_found_x_session_token_in_header",
+    response: "Сессия не найдена",
 };
 export const CONST_ERROR_RESPONSE_INVALID_PASSWORD: IErrorResponse = {
     codeStatus: 400,
     code: 2,
-    response: "invalid_password",
+    response: "Неверный пароль",
 };
 export const CONST_ERROR_RESPONSE_EMPTY_FILLS: IErrorResponse = {
     codeStatus: 400,
     code: 3,
-    response: "empty_fills",
+    response: "Пустые поля",
 };
 
 export const CONST_ERROR_RESPONSE_USER_NOT_EXIST: IErrorResponse = {
     codeStatus: 400,
     code: 4,
-    response: "user_not_exist",
+    response: "Пользователь не существует",
 }
 
 export const CONST_ERROR_RESPONSE_ALREADY_HAVE_FRIEND: IErrorResponse = {
     codeStatus: 400,
     code: 5,
-    response: "friend_already_added"
+    response: "Пользователь уже добавлен"
+}
+
+export const CONST_ERROR_RESPONSE_FILE_EXTENSION: IErrorResponse = {
+    codeStatus:400,
+    code: 6,
+    response: "Неверное расширение файла"
 }
 
 

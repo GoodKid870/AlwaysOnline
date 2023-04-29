@@ -80,6 +80,18 @@
 </header>
 
 <main>
+    <!-- Модальное окно -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle"></i>Error</h2>
+            </div>
+            <div class="modal-body">
+                <p id="errorMessage"></p>
+            </div>
+        </div>
+    </div>
     <div class="jumbotron">
         <h1>Создайте свой аккаунт</h1>
         <p>Введите имя пользователя и пароль</p>
@@ -101,6 +113,29 @@
 
 </body>
 <script>
+    // Получаем модальное окно и элементы в нем
+    const modal = document.getElementById("errorModal");
+    const modalText = document.getElementById("errorMessage");
+    const closeBtn = document.getElementsByClassName("close")[0];
+
+    // Функция, которая показывает модальное окно с заданным текстом
+    function showErrorModal(text) {
+        modalText.textContent = text;
+        modal.style.display = "block";
+    }
+
+    // Закрываем модальное окно при клике на кнопку "закрыть"
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+        location.reload()
+    }
+
+    // Закрываем модальное окно при клике на область вокруг него
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
     const form = document.getElementById("formLogin");
     form.addEventListener("submit", sendInfo);
     async function sendInfo(e) {
@@ -123,8 +158,7 @@
         if (response.status == "success") {
             window.location.href = "/login";
         } else {
-            alert(response.message);
-            location.reload();
+            showErrorModal(response.message);
         }
     }
 </script>

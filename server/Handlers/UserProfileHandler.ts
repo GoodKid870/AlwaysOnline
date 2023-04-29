@@ -7,25 +7,32 @@ import UserRepository from "../Repository/UserRepository";
 import Database from "../Repository/Database";
 import MessageRepository from "../Repository/MessageRepository";
 import webManager from "../Repository/WebManager";
-import {CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER} from "../Repository/Interfaces/ErrorResponsList";
+import {
+    CONST_ERROR_RESPONSE_EMPTY_FILLS,
+    CONST_ERROR_RESPONSE_FILE_EXTENSION,
+    CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER
+} from "../Repository/Interfaces/ErrorResponsList";
 
 
 class UserProfileHandler {
     public static async ChangeUserAvatar (req: CustomRequest, res: Response)  {
         try {
-            const {destination, filename} = req.file;
+            const {destination, filename, mimetype} = req.file;
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
+
+            if (!['image/jpeg', 'image/png', 'image/gif'].includes(mimetype)) {
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_FILE_EXTENSION, res);
+                return;
+            }
 
             if (user == undefined) {
                 webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 return;
             }
 
-            if ((user == undefined ) || (filename == '') || (destination == '') || (req.file == undefined)){
-                return res.json({
-                    status: "error",
-                    message: "Isn't User"
-                })
+            if ((filename == '') || (destination == '') || (req.file == undefined)){
+                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_EMPTY_FILLS, res);
+                return;
             }
             //меняем аватарку
             UserRepository.GetUserAvatar(user.userInfo.userMail, destination, filename)

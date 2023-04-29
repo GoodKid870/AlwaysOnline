@@ -312,9 +312,6 @@ wss.on('connection', (ws: WebSocket, request: CustomRequest) => {
 });
 
 
-
-
-
 // берем нашу пэйдж настройки
 app.get("/usersetting", async (req: CustomRequest, res: Response) => {
     try {
