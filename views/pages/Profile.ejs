@@ -190,7 +190,7 @@
                 const data = await response.json();
                 if (data.code == 1) {
                     // Отобразить сообщение об ошибке и перейти на страницу логина
-                    showErrorModal(data.response);
+                    showErrorModal(data);
                 } else {
                     // Перезагрузить страницу
                     location.reload();
