@@ -5,6 +5,7 @@
   "scripts": {
     "build:autoimport": "node build/AutoImportHandlers.build",
     "build": "npm run build:autoimport && tsc",
+    "start": "node ./dist/app.js",
     "dev": "nodemon"
   },
   "type": "commonjs",
