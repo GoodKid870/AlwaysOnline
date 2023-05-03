@@ -15,10 +15,12 @@ class FriendsHandler {
                 const user = UserRepository.GetUserFromSession(req.session.usertoken);
                 if (user == undefined) {
                     webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                    return;
                 }
 
                 if (FriendsRepository.HasFriend(user.userInfo.userMail, userId)) {
                     webManager.SendErrorResponse(CONST_ERROR_RESPONSE_ALREADY_HAVE_FRIEND, res);
+                    return;
                 }
 
                 FriendsRepository.AddSomeFriend(user.userInfo.userMail, username, email, userId, avatar);

@@ -9,10 +9,10 @@ class Database {
         //мы берем какой-то обьект из базы данных с которым хотим работать
         public static GetDatabaseObject(type, id){
             try {
-                const data: string = fs.readFileSync(`./server/database/${type}/${id}.json`, "utf-8")
-                return JSON.parse(data)
+                const data: string = fs.readFileSync(`./server/database/${type}/${id}.json`, "utf-8");
+                return JSON.parse(data);
             } catch (e) {
-                return undefined
+                return undefined;
             }
         }
 
@@ -21,17 +21,17 @@ class Database {
             try {
                 fs.writeFileSync(`./server/database/${type}/${id}.json`, JSON.stringify(object, null, 2));
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
         }
 
         //мы берем всех пользователей из базы данных с которым хотим работать
         public static GetAllDatabaseUsers(currentUser) {
             try {
-                const files = fs.readdirSync('./server/database/users/');
-                const users = files.map((file) => {
-                    const filePath = path.join('./server/database/users/', file);
-                    const data = fs.readFileSync(filePath, 'utf8');
+                const files: string[] = fs.readdirSync('./server/database/users/');
+                const users: {userInfo: any, avatar: any}[] = files.map((file) => {
+                    const filePath: string = path.join('./server/database/users/', file);
+                    const data: string = fs.readFileSync(filePath, 'utf8');
                     const { userInfo, avatar } = JSON.parse(data);
                     return { userInfo, avatar };
                 });

@@ -1,6 +1,7 @@
 //импортируем репозитории
 import Database from "./Database";
 import UserRepository from "./UserRepository";
+import * as stream from "stream";
 
 //работа с репозиторием друзья
 class FriendsRepository {
@@ -16,7 +17,7 @@ class FriendsRepository {
     //выдаем массив из друзей для пользователя
     public static GetDatabasefriendsListFromUser(userMail){
         const user = UserRepository.GetUserFromEmail(userMail)
-        const friends = []
+        const friends: string[] = []
         if (user != undefined && 'friends' in user){
             for (const userId of user.friends){
                 const people = FriendsRepository.GetDatabasefriends(userId.userId)
@@ -31,7 +32,7 @@ class FriendsRepository {
 
     //добавляем пользователя в друзья
 
-    //здесь мы создаем друга как обьект
+    //здесь мы создаем друга как объект
     public static CreateFriendObject(username, userMail, userId, avatar) {
         return {
             "friends": {
@@ -54,8 +55,8 @@ class FriendsRepository {
     try {
         const user = UserRepository.GetUserFromEmail(userMail);
         const user2 = UserRepository.GetUserFromEmail(email);
-        const userFriend = FriendsRepository.CreateFriendObject(username, email, userId, avatar);
-        const userFriend2 = FriendsRepository.CreateFriendObject(user.userInfo.userLogin, user.userInfo.userMail, user.userInfo.userId, user.avatar);
+        const userFriend: {friends: {username: any, usermail: any, userId: any, avatar: any}} = FriendsRepository.CreateFriendObject(username, email, userId, avatar);
+        const userFriend2: {friends: {username: any, usermail: any, userId: any, avatar: any}} = FriendsRepository.CreateFriendObject(user.userInfo.userLogin, user.userInfo.userMail, user.userInfo.userId, user.avatar);
 
         if (!user.friends) {
             user.friends = [];

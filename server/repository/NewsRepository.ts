@@ -53,7 +53,7 @@ class NewsRepository {
                 for (const newsId of user.posts) {
                     const news = NewsRepository.GetDatabaseNews(newsId.postId);
                     if (news != undefined) {
-                        if (news.posts.username === username) {
+                        if (news.posts.username == username) {
                             news.posts.username = newusername;
                         }
                         Database.SetDatabaseObject("news", newsId.postId, news);

@@ -27,17 +27,18 @@ import FriendsRepository from "./server/Repository/FriendsRepository";
 import webManager from "./server/Repository/WebManager";
 import {CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER} from "./server/Repository/Interfaces/ErrorResponsList";
 //--Repository--//
+
+
+//--View engine setup and setup our app--//
 const app = express();
 const server = createServer(app);
-
-//--View engine setup--//
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-//--View engine setup--//
+//--View engine setup and setup our app--//
 
-// Middleware setup
+//--Middleware setup--//
 app.use(express.json());
 const sessionParser = session({
     secret: 'thisismysecretdonttellanyone!',
@@ -47,10 +48,8 @@ const sessionParser = session({
 });
 app.use(sessionParser);
 app.use(bodyParser.json());
+//--Middleware setup--//
 
-function onSocketError(err: any) {
-    console.error(err);
-}
 
 //-------GET Requests--------//
 
@@ -212,7 +211,9 @@ const wss = new WebSocketServer({ clientTracking: false, noServer: true });
 //используем мапы для коннектов и пар юзеров
 const connections: Map<number, WebSocket> = new Map();
 const connectedPairs: Map<string, boolean> = new Map();
-
+function onSocketError(err: any) {
+    console.error(err);
+}
 
 //основная логика коннектов, передачи сообщений и присоединения к комнатам
 server.on('upgrade', (request: CustomRequest, socket, head) => {
@@ -346,7 +347,6 @@ app.post("/registration", async (req: CustomRequest, res: Response) => {
 //POST моменты авторизация
 app.post('/login', async (req: CustomRequest, res: Response) => {
     try {
-        if (!req.body) return res.sendStatus(400);
         await loginAndRegistrationHandler.UserAuthorized(req, res)
     } catch (e) {
 
@@ -366,7 +366,6 @@ app.post("/news", async (req: CustomRequest, res: Response) => {
 //POST моменты настройки
 app.post('/settings', upload.single('avatar'), async (req: CustomRequest, res: Response) => {
     try {
-        if (!req.file) return res.sendStatus(400)
         await UserProfileHandler.ChangeUserAvatar(req, res)
     }
     catch (e) {

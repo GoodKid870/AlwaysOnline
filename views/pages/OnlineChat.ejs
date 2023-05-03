@@ -60,7 +60,6 @@
     </nav>
 </header>
 <main>
-
     <div class="jumbotron">
         <div class="container">
             <div class="card p-3">
@@ -89,29 +88,29 @@
 </footer>
 </body>
 <script>
-    // Получаем модальное окно и элементы в нем
-    const modal = document.getElementById("errorModal");
-    const modalText = document.getElementById("errorMessage");
-    const closeBtn = document.getElementsByClassName("close")[0];
-
-    // Функция, которая показывает модальное окно с заданным текстом
-    function showErrorModal(text) {
-        modalText.textContent = text;
-        modal.style.display = "block";
-    }
-
-    // Закрываем модальное окно при клике на кнопку "закрыть"
-    closeBtn.onclick = function() {
-        modal.style.display = "none";
-        location.reload()
-    }
-
-    // Закрываем модальное окно при клике на область вокруг него
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+    // // Получаем модальное окно и элементы в нем
+    // const modal = document.getElementById("errorModal");
+    // const modalText = document.getElementById("errorMessage");
+    // const closeBtn = document.getElementsByClassName("close")[0];
+    //
+    // // Функция, которая показывает модальное окно с заданным текстом
+    // function showErrorModal(text) {
+    //     modalText.textContent = text;
+    //     modal.style.display = "block";
+    // }
+    //
+    // // Закрываем модальное окно при клике на кнопку "закрыть"
+    // closeBtn.onclick = function() {
+    //     modal.style.display = "none";
+    //     location.reload()
+    // }
+    //
+    // // Закрываем модальное окно при клике на область вокруг него
+    // window.onclick = function(event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
     async function sessionUser() {
         try {
             const response = await fetch('/start-chat?to=<%=to%>');
@@ -119,19 +118,25 @@
                 const data = await response.json();
                 if (data.code == 1) {
                     // Отобразить сообщение об ошибке и перейти на страницу логина
-                    showErrorModal(data.response);
+                    window.location.href = "/login";
+                    showErrorMessage(data.response);
                 } else {
                     // Перезагрузить страницу
                     location.reload();
                 }
             } else {
                 // Обработать ошибку HTTP
-                showErrorModal(`Ошибка HTTP: ${response.status} ${response.statusText}`);
+                showErrorMessage(`Ошибка HTTP: ${response.status} ${response.statusText}`);
             }
         } catch (error) {
             // Обработать ошибку сети или парсинга JSON
-            showErrorModal(`Ошибка: ${error.message}`);
+            showErrorMessage(`Ошибка: ${error.message}`);
         }
+    }
+
+    function showErrorMessage(message) {
+        // Отобразить сообщение об ошибке, например, в модальном окне или уведомлении
+        console.error(message);
     }
 
 

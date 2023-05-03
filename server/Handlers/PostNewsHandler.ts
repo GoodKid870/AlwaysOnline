@@ -17,14 +17,15 @@ class PostNewsHandler {
         try {
             const {caption, url}: IUserNews = req.body;
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
-
             // Проверяем на пустые поля
             if (!caption || !url) {
                 webManager.SendErrorResponse(CONST_ERROR_RESPONSE_EMPTY_FILLS, res);
+                return;
             }
 
             if (!user) {
                 webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                return;
             }
             //добавляем новость
             NewsRepository.CreatePostsFromUser(user.userInfo.userMail, user.userInfo.userLogin, caption, url)
