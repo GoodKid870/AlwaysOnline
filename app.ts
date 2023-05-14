@@ -6,6 +6,7 @@ import { createServer } from 'http';
 import { WebSocketServer } from "ws";
 import bodyParser from "body-parser";
 import multer from 'multer';
+import { WebSocket } from 'ws';
 const upload = multer({ dest: 'uploads/users/avatars' })
 import type { Response } from 'express';
 //--NPM Libraries--//
