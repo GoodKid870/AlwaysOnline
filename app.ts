@@ -49,7 +49,6 @@ const sessionParser = session({
 });
 app.use(sessionParser);
 app.use(bodyParser.json());
-console.log(213)
 //--Middleware setup--//
 
 
