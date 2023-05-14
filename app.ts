@@ -253,7 +253,7 @@ wss.on('connection', (ws: WebSocket, request: CustomRequest) => {
         const senderName = data.senderName
         const fileName = `chat_${senderId}_${recipientId}`;
         const user = UserRepository.GetUserFromSession(request.session.usertoken)
-        const friend = FriendsRepository.GetDatabasefriends(recipientId)
+        const friend = FriendsRepository.GetDatabaseFriends(recipientId)
         const friendUser = UserRepository.GetUserFromEmail(friend.friends.usermail);
         let chatHistory = {
             chat: [],
