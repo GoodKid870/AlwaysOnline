@@ -3,7 +3,6 @@ import * as path from "path";
 import * as fs from "fs";
 
 //работа с базой данных
-
 class Database {
 
         //мы берем какой-то обьект из базы данных с которым хотим работать
