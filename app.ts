@@ -25,7 +25,7 @@ import UserRepository from "./server/Repository/UserRepository";
 import Database from "./server/Repository/Database";
 import MessageRepository from "./server/Repository/MessageRepository";
 import FriendsRepository from "./server/Repository/FriendsRepository";
-import webManager from "./server/Repository/WebManager";
+import WebManager from "./server/Repository/WebManager";
 import {CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER} from "./server/Repository/Interfaces/ErrorResponsList";
 //--Repository--//
 
@@ -79,7 +79,7 @@ app.get('/settings', async (req: CustomRequest, res: Response) => {
         if (req.session.authorized == true){
             const user = UserRepository.GetUserFromSession(req.session.usertoken);
             if (user == undefined){
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 return;
             }
             res.render("pages/Settings", {mail: user.userInfo.userMail, login: user.userInfo.userLogin, avatar: user.avatar});
@@ -100,7 +100,7 @@ app.get('/create', async (req: CustomRequest, res: Response) => {
         if (req.session.authorized == true){
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 return;
             }
             res.render("pages/CreatePost", {mail: user.userInfo.userMail, login: user.userInfo.userLogin, avatar: user.avatar})
@@ -118,7 +118,7 @@ app.get(`/profile`, async (req: CustomRequest, res: Response) => {
         if (req.session.authorized == true){
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 return;
             }
             const statistic = UserRepository.UserStatisticCounter(user.userInfo.userMail)
@@ -155,7 +155,7 @@ app.get("/addfriend", async (req: CustomRequest, res: Response) => {
         if (req.session.authorized == true){
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 return;
             }
             const users = Database.GetAllDatabaseUsers(user.userInfo.userMail)
@@ -174,7 +174,7 @@ app.get("/start-chat", (req: CustomRequest, res: Response) => {
         if (req.session.authorized == true) {
             const user = UserRepository.GetUserFromSession(req.session.usertoken);
             if (user == undefined) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 return;
             }
             const to = req.query.to;
@@ -320,7 +320,7 @@ app.get("/usersetting", async (req: CustomRequest, res: Response) => {
         if (req.session.authorized == true){
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 return;
             }
             res.render("pages/SettingData", {mail: user.userInfo.userMail, login: user.userInfo.userLogin, avatar: user.avatar})

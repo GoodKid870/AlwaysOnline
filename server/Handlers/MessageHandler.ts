@@ -3,7 +3,7 @@ import { Response } from "express";
 import FriendsRepository from "../Repository/FriendsRepository";
 import UserRepository from "../Repository/UserRepository";
 import Database from "../Repository/Database";
-import webManager from "../Repository/WebManager";
+import WebManager from "../Repository/WebManager";
 import {CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER} from "../Repository/Interfaces/ErrorResponsList";
 
 class MessageHandler {
@@ -12,7 +12,7 @@ class MessageHandler {
             //проверяем сессию на предмет юзера
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 return;
             }
             //если пользователь заходит на эту страницу все уведомления чистятся, если они есть

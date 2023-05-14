@@ -32,7 +32,7 @@ class MessageRepository  {
     public static AddUserMessage(filename, message, userMail, friendId) {
         try {
             const user = UserRepository.GetUserFromEmail(userMail);
-            const friend = FriendsRepository.GetDatabasefriends(friendId);
+            const friend = FriendsRepository.GetDatabaseFriends(friendId);
             const friendUser = UserRepository.GetUserFromEmail(friend.friends.usermail);
             if (!user.mail || user.mail.length === 0 || !friendUser.mail || friendUser.mail.length === 0) {
                 user.mail = user.mail || [];

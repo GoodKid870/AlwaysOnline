@@ -6,7 +6,7 @@ import FriendsRepository from "../Repository/FriendsRepository";
 import UserRepository from "../Repository/UserRepository";
 import Database from "../Repository/Database";
 import MessageRepository from "../Repository/MessageRepository";
-import webManager from "../Repository/WebManager";
+import WebManager from "../Repository/WebManager";
 import {
     CONST_ERROR_RESPONSE_EMPTY_FILLS,
     CONST_ERROR_RESPONSE_FILE_EXTENSION,
@@ -21,17 +21,17 @@ class UserProfileHandler {
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
 
             if (!['image/jpeg', 'image/png', 'image/gif'].includes(mimetype)) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_FILE_EXTENSION, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_FILE_EXTENSION, res);
                 return;
             }
 
             if (user == undefined) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 return;
             }
 
             if ((filename == '') || (destination == '') || (req.file == undefined)){
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_EMPTY_FILLS, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_EMPTY_FILLS, res);
                 return;
             }
             //меняем аватарку
@@ -50,7 +50,7 @@ class UserProfileHandler {
             const { userMail, userLogin, userPassword } = req.body;
             const user = UserRepository.GetUserFromSession(req.session.usertoken);
             if (user == undefined) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 return;
             }
             if (UserRepository.GetUserFromEmail(userMail) == undefined){

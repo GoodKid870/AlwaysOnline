@@ -4,7 +4,7 @@ import {IUserNews} from "../Repository/Interfaces/IUserNews";
 import { Response } from "express";
 import NewsRepository from "../Repository/NewsRepository";
 import UserRepository from "../Repository/UserRepository";
-import webManager from "../Repository/WebManager";
+import WebManager from "../Repository/WebManager";
 import {
     CONST_ERROR_RESPONSE_EMPTY_FILLS,
     CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER
@@ -19,12 +19,12 @@ class PostNewsHandler {
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             // Проверяем на пустые поля
             if (!caption || !url) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_EMPTY_FILLS, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_EMPTY_FILLS, res);
                 return;
             }
 
             if (!user) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 return;
             }
             //добавляем новость
@@ -44,7 +44,7 @@ class PostNewsHandler {
             //да-да опять сессия
             const user = UserRepository.GetUserFromSession(req.session.usertoken)
             if (user == undefined){
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_NOT_HAVE_X_SESSION_TOKEN_HEADER, res);
                 return;
             }
             //рендерим страницу с постами

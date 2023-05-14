@@ -1,7 +1,6 @@
 import CustomRequest from "../Repository/Interfaces/CustomRequest";
 import {RequestBodyLogin} from "../Repository/Interfaces/RequestBodyLogin";
 import { Response } from "express";
-import webManager from "../Repository/WebManager";
 import {
     CONST_ERROR_RESPONSE_EMPTY_FILLS,
     CONST_ERROR_RESPONSE_INVALID_PASSWORD, CONST_ERROR_RESPONSE_USER_EXIST,
@@ -19,20 +18,20 @@ class LoginAndRegistrationHandler {
         try {
 
             if (userMail == undefined && userPassword == undefined){
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_EMPTY_FILLS, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_EMPTY_FILLS, res);
                 return;
             }
 
             //проверяем нашего юзера на момент существования
             let user = UserRepository.GetUserFromEmail(userMail);
             if (user == undefined) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_USER_NOT_EXIST, res);
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_USER_NOT_EXIST, res);
                 return;
             }
 
             //если авторизовался
             if (userPassword != user.userInfo.userPassword) {
-                webManager.SendErrorResponse(CONST_ERROR_RESPONSE_INVALID_PASSWORD, res)
+                WebManager.SendErrorResponse(CONST_ERROR_RESPONSE_INVALID_PASSWORD, res)
                 return;
             }
             //создаем сессию и пихаем туда всяко разное

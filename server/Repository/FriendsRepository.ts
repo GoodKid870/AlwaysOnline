@@ -1,11 +1,11 @@
 //импортируем репозитории
 import Database from "./Database";
 import UserRepository from "./UserRepository";
-import * as stream from "stream";
+
 
 //работа с репозиторием друзья
 class FriendsRepository {
-    public static GetDatabasefriends(id){
+    public static GetDatabaseFriends(id){
         try {
             const friends = Database.GetDatabaseObject("friends", id)
             return friends
@@ -20,7 +20,7 @@ class FriendsRepository {
         const friends: string[] = []
         if (user != undefined && 'friends' in user){
             for (const userId of user.friends){
-                const people = FriendsRepository.GetDatabasefriends(userId.userId)
+                const people = FriendsRepository.GetDatabaseFriends(userId.userId)
                 if (people != undefined){
                     friends.push(people)
                 }
@@ -83,7 +83,7 @@ class FriendsRepository {
     public static ChangeFriendsData(usermail, newusername, newusermail) {
         try {
             const user = UserRepository.GetUserFromEmail(usermail);
-            const friend = FriendsRepository.GetDatabasefriends(user.userInfo.userId);
+            const friend = FriendsRepository.GetDatabaseFriends(user.userInfo.userId);
             if (friend != undefined) {
                 friend.friends.username = newusername;
                 friend.friends.usermail = newusermail
@@ -97,7 +97,7 @@ class FriendsRepository {
     public static ChangeFriendAvatar(usermail, username, avatar){
         try {
             const user = UserRepository.GetUserFromEmail(usermail);
-            const friend = FriendsRepository.GetDatabasefriends(user.userInfo.userId);
+            const friend = FriendsRepository.GetDatabaseFriends(user.userInfo.userId);
             if (friend != undefined) {
                 friend.friends.username = username;
                 friend.friends.avatar = avatar
