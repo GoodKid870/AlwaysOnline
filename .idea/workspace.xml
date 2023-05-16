@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3215d685-5db4-409c-88cf-39f7b2b33c6e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +36,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "dev",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/GoodKid/Desktop/Я САМО ЗЛО/123231/AlwaysOnline",
+    "last_opened_file_path": "C:/Users/GoodKid/Desktop/Я САМО ЗЛО/Свои разрабатываемые проекты/AlwaysOnline",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -84,7 +84,7 @@
       <workItem from="1684066342457" duration="58000" />
       <workItem from="1684087690311" duration="1197000" />
       <workItem from="1684090594158" duration="1231000" />
-      <workItem from="1684248092003" duration="1435000" />
+      <workItem from="1684248092003" duration="2030000" />
     </task>
     <servers />
   </component>
