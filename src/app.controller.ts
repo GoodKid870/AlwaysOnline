@@ -1,12 +1,20 @@
-import { Controller, Get } from '@nestjs/common';
+import {BadRequestException, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller()
+@Controller("app")
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get("users/:id")
+  getHello(@Param('id', ParseIntPipe) id: number) {
+    if (id < 5){
+      throw new BadRequestException("Id пользователя должен быть больше 5")
+    }
+    return id
+  }
+
+  @Post("login")
+  create(){
+    console.log(1)
   }
 }
