@@ -1,31 +1,33 @@
-// profile/profile.controller.ts
-
-import { Controller, Get, Post, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { ProfileService } from './profile.service';
+import { CreateProfileDto, UpdateProfileDto } from './dto/profile.dto';
 
 @Controller('profiles')
 export class ProfileController {
+    constructor(private readonly profileService: ProfileService) {}
+
     @Get()
     getAllProfiles() {
-        // Возвращает все профили пользователей
+        return this.profileService.getAllProfiles();
     }
 
     @Get(':id')
-    getProfileById() {
-        // Возвращает профиль пользователя по его идентификатору
+    getProfileById(@Param('id') id: number) {
+        return this.profileService.getProfileById(id);
     }
 
     @Post()
-    createProfile() {
-        // Создает новый профиль пользователя
+    createProfile(@Body() createProfileDto: CreateProfileDto) {
+        return this.profileService.createProfile(createProfileDto);
     }
 
     @Put(':id')
-    updateProfile() {
-        // Обновляет профиль пользователя по его идентификатору
+    updateProfile(@Param('id') id: number, @Body() updateProfileDto: UpdateProfileDto) {
+        return this.profileService.updateProfile(id, updateProfileDto);
     }
 
     @Delete(':id')
-    deleteProfile() {
-        // Удаляет профиль пользователя по его идентификатору
+    deleteProfile(@Param('id') id: number) {
+        return this.profileService.deleteProfile(id);
     }
 }
