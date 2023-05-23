@@ -5,10 +5,12 @@ import {DataModule} from "../data/data.module";
 import {ChatModule} from "../chat/chat.module";
 import {ProfileController} from "../profile/profile.controller";
 import {UserController} from "../user/user.controller";
+import {ProfileModule} from "../profile/profile.module";
+import {ProfileService} from "../profile/profile.service";
 
 @Module({
-  imports: [DataModule, ChatModule],
+  imports: [DataModule, ChatModule, ProfileModule],
   controllers: [AppController, UserController, ProfileController],
-  providers: [AppService],
+  providers: [AppService, ProfileService],
 })
 export class AppModule {}
