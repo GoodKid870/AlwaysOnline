@@ -4,11 +4,11 @@ import dotenv from "dotenv"
 import * as process from "process";
 
 
-dotenv.config()
+// dotenv.config()
 
 async function Init() {
   const app = await NestFactory.create(AppModule);
 
-  await app.listen(process.env.PORT);
+  await app.listen(3000);
 }
 Init();

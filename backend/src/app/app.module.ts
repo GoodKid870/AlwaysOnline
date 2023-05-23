@@ -7,10 +7,11 @@ import {ProfileController} from "../profile/profile.controller";
 import {UserController} from "../user/user.controller";
 import {ProfileModule} from "../profile/profile.module";
 import {ProfileService} from "../profile/profile.service";
+import {PrismaService} from "../../prisma/prisma.service";
 
 @Module({
   imports: [DataModule, ChatModule, ProfileModule],
   controllers: [AppController, UserController, ProfileController],
-  providers: [AppService, ProfileService],
+  providers: [AppService, ProfileService, PrismaService],
 })
 export class AppModule {}
