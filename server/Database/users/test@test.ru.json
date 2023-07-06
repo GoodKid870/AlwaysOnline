@@ -1,0 +1,27 @@
+{
+  "userInfo": {
+    "userMail": "test@test.ru",
+    "userLogin": "GoodKid",
+    "userPassword": "1234",
+    "userId": 1688683264870
+  },
+  "avatar": null,
+  "posts": [
+    {
+      "postId": 1688683296343
+    }
+  ],
+  "friends": [
+    {
+      "userId": 1688683360616
+    }
+  ],
+  "unreadMessages": {
+    "1688683264870": 1
+  },
+  "mail": [
+    {
+      "chatId": "chat_1688683360616_1688683264870"
+    }
+  ]
+}

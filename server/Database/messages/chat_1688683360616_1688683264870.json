@@ -1,0 +1,16 @@
+{
+  "chat": [
+    {
+      "senderId": "me",
+      "content": "saads",
+      "recipientId": 1688683264870,
+      "avatar": "",
+      "senderName": "Faith",
+      "chatId": "chat_1688683360616_1688683264870",
+      "timestamp": "2023-07-06T22:42:58.935Z"
+    }
+  ],
+  "chatId": "chat_1688683360616_1688683264870",
+  "sender": "test2@test.com",
+  "receiver": "test@test.ru"
+}

@@ -1,0 +1,19 @@
+{
+  "userInfo": {
+    "userMail": "test2@test.com",
+    "userLogin": "Faith",
+    "userPassword": "1234",
+    "userId": 1688683360616
+  },
+  "avatar": null,
+  "friends": [
+    {
+      "userId": "1688683264870"
+    }
+  ],
+  "mail": [
+    {
+      "chatId": "chat_1688683360616_1688683264870"
+    }
+  ]
+}
